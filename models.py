@@ -1,23 +1,33 @@
 from sqlalchemy import Column, Integer, Float, String, Date, ForeignKey
+from werkzeug.security import generate_password_hash, check_password_hash
 
 from database import Base, engine
 
 
 class User(Base):
-    #Сreating a table of users where personal data of users will be saved
+    # Сreate a table of users where personal data of users will be saved
     __tablename__ = 'user'
 
     id = Column(Integer, primary_key=True)
     username = Column(String)
     email = Column(String, unique=True)
-    password = Column(String)
+    password = Column(String(100), nullable=False)
+
+    def set_password(self, password):
+        """Create hashed password."""
+        self.password = generate_password_hash(password,
+                                               method='pbkdf2:sha256')
+
+    def check_password(self, password):
+        """Check hashed password."""
+        return check_password_hash(self.password, password)
 
     def __repr__(self):
         return f'<User {self.username} {self.email}>'
 
 
-class Сategory_name(Base):
-    #Creating a table with different categories (Ex., Salary, Groceries, etc.)
+class СategoryName(Base):
+    # Create a table with different categories (Ex., Salary, Groceries, etc.)
     __tablename__ = 'category_name'
 
     id = Column(Integer, primary_key=True)
@@ -27,8 +37,8 @@ class Сategory_name(Base):
         return f'<Category {self.name}>'
 
 
-class Budget_type(Base):
-    #Creating a table with type of budget: Income and Expenses
+class BudgetType(Base):
+    # Create a table with type of budget: Income and Expenses
     __tablename__ = 'budget_type'
 
     id = Column(Integer, primary_key=True)
@@ -39,22 +49,21 @@ class Budget_type(Base):
 
 
 class Budget(Base):
-    #Creating a table with a specific type of budget. Sort by specific categories. (Ex., Income:Salary-2000$, 10.09.2022) 
+    # Create a table with the type of budget and the amount on it.
     __tablename__ = 'budget'
 
     id = Column(Integer, primary_key=True)
     amount = Column(Float)
-    date_of_transaction = Column(Date)
-    budget_type_id = Column(Integer, ForeignKey(Budget_type.id), index=True, nullable=False)
-    user_id = Column(Integer, ForeignKey(User.id), index=True, nullable=False)
-    category_name_id = Column(Integer, ForeignKey(Сategory_name.id), index=True, nullable=False)
+    budget_type_id = Column(Integer, ForeignKey(BudgetType.id),
+                            index=True, nullable=False)
+    user_id = Column(Integer, ForeignKey(User.id), nullable=False)
 
     def __repr__(self):
-        return f'<{self.budget_type_id}: {self.category_id} - {self.amount}, {self.date_of_transaction}>'
+        return f'<{self.budget_type_id}: {self.amount}>'
 
 
-class Account_type(Base):
-    #Creating a table with type of account (Ex., Cash, Visa card, Bank, etc.)
+class AccountType(Base):
+    # Create a table with type of account (Ex., Cash, Visa card, Bank, etc.)
     __tablename__ = 'account_type'
 
     id = Column(Integer, primary_key=True)
@@ -64,21 +73,27 @@ class Account_type(Base):
         return f'<Type of account: {self.name}>'
 
 
-class Account(Base):
-    #Creating a table with a specific type of account. Sort by specific categories based on budget type 
+class Transaction(Base):
+    # Create a table with transactions. Sort by specific categories
+    # based on budget type and account type
     # (Ex., Visa card: Clothes = -500$ (Expense), 12.09.2022)
-    __tablename__ = 'account'
+    __tablename__ = 'transaction'
 
     id = Column(Integer, primary_key=True)
     amount = Column(Float)
     date_of_transaction = Column(Date)
-    category_name_id = Column(Integer, ForeignKey(Сategory_name.id), index=True, nullable=False) 
-    account_type_id = Column(Integer, ForeignKey(Account_type.id), index=True, nullable=False) 
-    budget_type_id = Column(Integer, ForeignKey(Budget_type.id), index=True, nullable=False) 
+    category_name_id = Column(Integer, ForeignKey(СategoryName.id),
+                              index=True, nullable=False)
+    account_type_id = Column(Integer, ForeignKey(AccountType.id),
+                             index=True, nullable=False)
+    budget_type_id = Column(Integer, ForeignKey(BudgetType.id),
+                            index=True, nullable=False)
 
     def __repr__(self):
-        return (f'<{self.account_type_id}: {self.category_name_id} = ({self.budget_type_id}) {self.amount}$,'
-                f'{self.date_of_transaction}>')
+        return (f'<Transaction from {self.date_of_transaction}: '
+                f'{self.account_type_id} -- {self.category_name_id} = '
+                f'{self.amount}$ ({self.budget_type_id})>')
+
 
 if __name__ == '__main__':
     Base.metadata.create_all(bind=engine)
