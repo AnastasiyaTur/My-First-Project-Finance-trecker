@@ -1,10 +1,12 @@
+from flask_login import UserMixin
 from sqlalchemy import Column, Integer, Float, String, Date, ForeignKey
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from database import Base, engine
 
 
-class User(Base):
+
+class User(Base, UserMixin):
     # Сreate a table of users where personal data of users will be saved
     __tablename__ = 'user'
 
