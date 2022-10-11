@@ -5,7 +5,6 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from database import Base, engine
 
 
-
 class User(Base, UserMixin):
     # Сreate a table of users where personal data of users will be saved
     __tablename__ = 'user'
@@ -14,6 +13,7 @@ class User(Base, UserMixin):
     username = Column(String)
     email = Column(String, unique=True)
     password = Column(String(100), nullable=False)
+    
 
     def set_password(self, password):
         """Create hashed password."""

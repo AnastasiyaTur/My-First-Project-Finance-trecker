@@ -1,9 +1,9 @@
-#Здесь я создавала админа (по урокам в видео), чтобы проверить создается ли пользователь
+#Здесь я создавала админа (по урокам в видео), чтобы проверить создается ли пользователь (из командной строки создавала)
 
 from getpass import getpass
 import sys
 
-from database import Base, engine
+from database import db_session
 from webapp import create_app
 from webapp.models import User
 
@@ -11,9 +11,10 @@ app = create_app()
 
 with app.app_context():
     username = input('Enter your name:')
+    email = input('Enter your email:')
     
-    if User.query.filter(User.username == username).count():
-        print('A user with the same name already exists')
+    if User.query.filter(User.email == email).count():
+        print('A user with the same email already exists')
         sys.exit(0)
 
     password1 = getpass('Enter your password')
@@ -23,9 +24,9 @@ with app.app_context():
         print('Passwords do not match')
         sys.exit(0)
 
-    new_user = User(username=username, role='admin')
+    new_user = User(username=username, email=email)
     new_user.set_password(password1)
 
-    #db.session.add(new_user)  закомментировала пока, так понимаю, что с базой данных не связана пока
-    #db.session.commit()
+    db_session.add(new_user)  
+    db_session.commit()
     
