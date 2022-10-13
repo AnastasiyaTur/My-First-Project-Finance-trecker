@@ -10,11 +10,24 @@
           <a class="nav-link" href="/">Home</a>
         </li>             
       </ul>
-        <li class="nav-btn">            
-            <a class="btn btn-outline-primary" href="{{ url_for('login') }}" role="button">Login</a>
-            <a class="btn btn-primary" href="{{ url_for('sign_up') }}" role="button">SignUp</a>
-            <a class="btn btn-dark" href="{{ url_for('logout') }}" role="button">Logout</a>
-        </li>        
+        <span class="navbar-text">
+          {% if current_user.is_authenticated %}
+            {{ current_user.username }}:  
+            {{ current_user.email }}  
+          {% endif %}     
+        </span>        
+        
+        <ul class="nav-btn">
+            {% if current_user.is_authenticated %} 
+              <a class="btn btn-primary" href="{{ url_for('sign_up') }}" role="button">SignUp</a>
+              <a class="btn btn-outline-light" href="{{ url_for('logout') }}" role="button">Logout</a>
+            {% endif %}
+            {% if not current_user.is_authenticated %}
+              <a class="btn btn-primary" href="{{ url_for('login') }}" role="button">Login</a>
+              <a class="btn btn-outline-primary" href="{{ url_for('sign_up') }}" role="button">SignUp</a>              
+            {% endif %}
+        </ul>       
+                
       
     </div>
 </nav>

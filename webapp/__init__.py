@@ -29,7 +29,7 @@ def create_app():
     @app.route("/login")
     def login():
         if current_user.is_authenticated:
-            return redirect (url_for('index'))
+            return redirect (url_for('index'))        
         title = "Authorization"        
         login_form = LoginForm()
         return render_template('login.html', page_title=title, form=login_form)
