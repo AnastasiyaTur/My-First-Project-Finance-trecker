@@ -12,8 +12,8 @@
       </ul>
         <span class="navbar-text">
           {% if current_user.is_authenticated %}
-            {{ current_user.username }}:  
-            {{ current_user.email }}  
+            Hello, {{ current_user.username }}:  
+            <small class="text-muted">{{ current_user.email }}</small>
           {% endif %}     
         </span>        
         

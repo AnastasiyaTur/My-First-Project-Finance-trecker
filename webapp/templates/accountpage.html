@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          <div class="alert alert-warning" role="alert">
+            {% for message in messages %}
+              {{ message }}<br>
+            {% endfor %}
+          </div>
+        {% endif %}
+    {% endwith %}
+</div> 
+<div class="col-12"> 
+  <div class="input-group mb-3">   
+    <div class="form-check form-check-inline">
+    <div class="card text-white bg-success mb-3" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">Add new account</h5>          
+          <a href="/create_account" class="btn btn-outline-light">Add</a>
+        </div>
+    </div>
+    </div>
+
+    <div class="form-check form-check-inline">
+    <div class="card text-white bg-info mb-3" style="width: 18rem;">
+        <div class="card-body" style="height: 113px;">
+            <h5 class="card-title">Total amount</h5>
+            <p class="card-text">Amount: 0 €</p>          
+        </div>
+    </div>
+    </div>
+  </div>    
+
+
+    <div class="form-check form-check-inline">
+    <div class="card text-white bg-secondary mb-3" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">Cash</h5>
+          <p class="card-text">Amount: 0 €</p>
+          <a href="#" class="btn btn-outline-light">Edit</a>
+        </div>
+    </div>  
+    </div>
+
+    <div class="form-check form-check-inline">
+    <div class="card text-white bg-secondary mb-3" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">Card MasterCard</h5>
+          <p class="card-text">Amount: 0 €</p>
+          <a href="#" class="btn btn-outline-light">Edit</a>
+        </div>
+    </div> 
+    </div>
+
+    <div class="form-check form-check-inline">
+    <div class="card text-white bg-secondary mb-3" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">Bank</h5>
+          <p class="card-text">Amount: 0 €</p>
+          <a href="#" class="btn btn-outline-light">Edit</a>
+        </div>
+    </div>
+    </div>    
+
+</div>
+
+<div class="col-0">    
+</div>
+
+{% endblock %}

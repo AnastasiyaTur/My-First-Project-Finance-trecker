@@ -1,8 +1,8 @@
-from flask_login import UserMixin
-from sqlalchemy import Column, Integer, Float, String, Date, ForeignKey
-from werkzeug.security import generate_password_hash, check_password_hash
-
 from database import Base, engine
+from flask_login import UserMixin
+from sqlalchemy import Column, Date, Float, ForeignKey, Integer, String
+from sqlalchemy.orm import relationship
+from werkzeug.security import check_password_hash, generate_password_hash
 
 
 class User(Base, UserMixin):
@@ -13,7 +13,6 @@ class User(Base, UserMixin):
     username = Column(String)
     email = Column(String, unique=True)
     password = Column(String(100), nullable=False)
-    
 
     def set_password(self, password):
         """Create hashed password."""
@@ -34,6 +33,7 @@ class СategoryName(Base):
 
     id = Column(Integer, primary_key=True)
     name = Column(String)
+    transaction = relationship("Transaction")
 
     def __repr__(self):
         return f'<Category {self.name}>'
@@ -45,6 +45,7 @@ class BudgetType(Base):
 
     id = Column(Integer, primary_key=True)
     name = Column(String)
+    transaction = relationship("Transaction")
 
     def __repr__(self):
         return f'<Type of budget: {self.name}>'
@@ -70,6 +71,7 @@ class AccountType(Base):
 
     id = Column(Integer, primary_key=True)
     name = Column(String)
+    transaction = relationship("Transaction")
 
     def __repr__(self):
         return f'<Type of account: {self.name}>'
@@ -90,6 +92,9 @@ class Transaction(Base):
                              index=True, nullable=False)
     budget_type_id = Column(Integer, ForeignKey(BudgetType.id),
                             index=True, nullable=False)
+    account_type = relationship("AccountType", overlaps='transaction')
+    budget_type = relationship("BudgetType", overlaps='transaction')
+    category_name = relationship("СategoryName", overlaps='transaction')
 
     def __repr__(self):
         return (f'<Transaction from {self.date_of_transaction}: '

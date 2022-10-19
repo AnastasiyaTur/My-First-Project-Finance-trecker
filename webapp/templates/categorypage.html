@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          <div class="alert alert-warning" role="alert">
+            {% for message in messages %}
+              {{ message }}<br>
+            {% endfor %}
+          </div>
+        {% endif %}
+    {% endwith %}
+</div> 
+<div class="col-12"> 
+  <div class="input-group mb-3">    
+    <div class="form-check form-check-inline">
+    <div class="card text-white bg-success mb-3" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">Add new category</h5>          
+          <a href="/create_category" class="btn btn-outline-light">Add</a>
+        </div>
+    </div>
+    </div>  
+  </div>   
+
+
+    <div class="form-check form-check-inline">
+    <div class="card text-white bg-secondary mb-3" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">Salary</h5>
+          <p class="card-text">Amount: 0 €</p>
+          <p class="card-text">Card MasterCard</p>
+          <p class="card-text">18.10.2022</p>
+          <a href="#" class="btn btn-outline-light">Edit</a>
+        </div>
+    </div>  
+    </div>
+
+    <div class="form-check form-check-inline">
+        <div class="card text-white bg-secondary mb-3" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title">Gifts</h5>
+              <p class="card-text">Amount: 0 €</p>
+              <p class="card-text">Cash</p>
+              <p class="card-text">19.10.2022</p>
+              <a href="#" class="btn btn-outline-light">Edit</a>
+            </div>
+        </div>  
+        </div>
+
+    <div class="form-check form-check-inline">
+        <div class="card text-white bg-secondary mb-3" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">Groceries</h5>
+                <p class="card-text">Amount: 0 €</p>
+                <p class="card-text">Card MasterCard</p>
+                <p class="card-text">13.10.2022</p>
+                <a href="#" class="btn btn-outline-light">Edit</a>
+            </div>
+        </div>  
+    </div>    
+
+    <div class="form-check form-check-inline">
+        <div class="card text-white bg-secondary mb-3" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title">Investment</h5>
+              <p class="card-text">Amount: 0 €</p>
+              <p class="card-text">Bank</p>
+              <p class="card-text">11.10.2022</p>
+              <a href="#" class="btn btn-outline-light">Edit</a>
+            </div>
+        </div>  
+    </div>
+
+</div>
+
+<div class="col-0">    
+</div>
+
+{% endblock %}

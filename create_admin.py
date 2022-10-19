@@ -1,7 +1,8 @@
-#Здесь я создавала админа (по урокам в видео), чтобы проверить создается ли пользователь (из командной строки создавала)
+# Здесь я создавала админа (по урокам в видео), чтобы проверить создается ли
+# пользователь (из командной строки создавала)
 
-from getpass import getpass
 import sys
+from getpass import getpass
 
 from database import db_session
 from webapp import create_app
@@ -12,7 +13,6 @@ app = create_app()
 with app.app_context():
     username = input('Enter your name:')
     email = input('Enter your email:')
-    
     if User.query.filter(User.email == email).count():
         print('A user with the same email already exists')
         sys.exit(0)
@@ -27,6 +27,5 @@ with app.app_context():
     new_user = User(username=username, email=email)
     new_user.set_password(password1)
 
-    db_session.add(new_user)  
+    db_session.add(new_user)
     db_session.commit()
-    
