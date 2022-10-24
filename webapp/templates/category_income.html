@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          <div class="alert alert-warning" role="alert">
+            {% for message in messages %}
+              {{ message }}<br>
+            {% endfor %}
+          </div>
+        {% endif %}
+    {% endwith %}
+</div>
+
+
+<div class="col-12"> 
+    <nav aria-label="breadcrumb">
+        <h4><ol class="breadcrumb" style="width: 900px">
+          <li class="breadcrumb-item">Categories</li>
+          <li class="breadcrumb-item active" aria-current="page">Income</li>
+        </ol></h4>
+    </nav>    
+
+  <div class="input-group mb-3">   
+    <div class="form-check form-check-inline">
+    <div class="card text-white bg-dark mb-3" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">Add new category</h5>          
+          <a href="/create_category" class="btn btn-outline-light">Add</a>
+        </div>
+    </div>
+    </div>  
+</div>  
+
+
+    <div class="form-check form-check-inline">
+        <div class="card bg-primary mb-3" style="width: 18rem;">
+            <div class="card-body">
+            <h5 class="card-title">Salary</h5>          
+            <a href="#" class="btn btn-outline-light">Edit</a>
+            </div>
+        </div>  
+    </div>
+
+    <div class="form-check form-check-inline">
+        <div class="card bg-success mb-3" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title">Investment</h5>          
+              <a href="#" class="btn btn-outline-light">Edit</a>
+            </div>
+        </div>  
+    </div>
+
+    <div class="form-check form-check-inline">
+        <div class="card bg-danger mb-3" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">Interest</h5>          
+                <a href="#" class="btn btn-outline-light">Edit</a>
+            </div>
+        </div>  
+    </div> 
+    
+    <div class="form-check form-check-inline">
+        <div class="card bg-warning mb-3" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title">Other</h5>          
+              <a href="#" class="btn btn-outline-light">Edit</a>
+            </div>
+        </div>  
+    </div>
+
+    <div class="form-check form-check-inline">
+        <div class="card bg-info mb-3" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title">Gifts</h5>          
+              <a href="#" class="btn btn-outline-light">Edit</a>
+            </div>
+        </div>  
+    </div>
+    
+
+</div>
+
+<div class="col-0">    
+</div>
+
+{% endblock %}

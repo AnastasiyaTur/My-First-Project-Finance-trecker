@@ -1,8 +1,8 @@
 from database import db_session
-from flask import Flask, flash, redirect, render_template, url_for
+from flask import Flask, flash, redirect, render_template, request, url_for
 from flask_login import LoginManager, current_user, login_user, logout_user
-from webapp.forms import AddTransaction, CreateAccount, LoginForm, SignUpForm
-from webapp.models import AccountType, Budget, Transaction, User
+from webapp.forms import AddTransaction, CreateAccount, CreateCategory, LoginForm, SignUpForm
+from webapp.models import AccountType, СategoryName, Transaction, User
 
 
 def create_app():
@@ -87,21 +87,24 @@ def create_app():
 
     @app.route("/process-create-transaction", methods=['GET', 'POST'])
     def process_create_transaction():
-        form = AddTransaction()
-        try:
-            if form.validate_on_submit():
-                new_transaction = Transaction(
-                    account_type_id=form.account_type,
-                    budget_type_id=form.transaction_type,
-                    category_name=form.category_name,
-                    amount=form.amount,
-                    date_of_transaction=form.date_of_transaction)
-                db_session.add(new_transaction)
-                db_session.commit()
-                flash('A new transaction create successfully')
-                return redirect(url_for('index'))
-        except Exception as e:
-            print(e)
+        form = AddTransaction()    
+        
+        date = request.form['date_of_transaction']         
+        category_name = request.form['select_category']
+        account_type = request.form['select_account']
+        budget_type = request.form['inlineRadioOptions']        
+        new_transaction = Transaction(
+            account_type_id=account_type,
+            budget_type_id=budget_type,
+            category_name_id=category_name,
+            amount=form.amount.data,
+            date_of_transaction=date,
+            description=form.description.data)     
+        db_session.add(new_transaction)
+        db_session.commit()
+        flash('A new transaction create successfully')
+        return redirect(url_for('index'))
+        
         flash('An error has occurred. Data not saved')
         return redirect(url_for('new_transaction'))
 
@@ -114,7 +117,7 @@ def create_app():
     def create_account():
         title = "Create account"
         create_account_form = CreateAccount()
-        return render_template('createaccount.html', page_title=title,
+        return render_template('create_account.html', page_title=title,
                                form=create_account_form)
 
     @app.route("/process_create_account", methods=['GET', 'POST'])
@@ -122,10 +125,10 @@ def create_app():
         form = CreateAccount()
 
         if form.validate_on_submit():
-            account = User.query.filter(AccountType.name == form.account_name.data).first()
+            account = AccountType.query.filter(AccountType.name == form.account_name.data).first()
             print(account)
             if account is None:
-                account = AccountType(name=form.account_name.data)
+                account = AccountType(name=form.account_name.data, amount=form.amount.data)
                 db_session.add(account)
                 db_session.commit()
                 flash('Create account successfully')
@@ -133,9 +136,47 @@ def create_app():
         flash('An error has occurred. Data not saved')
         return redirect(url_for('create_account'))
 
-    @app.route('/category')
-    def category():
-        title = "Category"
-        return render_template('categorypage.html', page_title=title)    
+    @app.route('/category_income')
+    def category_income():
+        # title = "Categories"
+        return render_template('category_income.html')
+
+    @app.route('/category_expenses')
+    def category_expenses():
+        # title = "Categories"
+        return render_template('category_expenses.html')
+
+    @app.route('/create_category')
+    def create_category():
+        title = "Create category"
+        create_category_form = CreateCategory()
+        return render_template('create_category.html', page_title=title,
+                               form=create_category_form)
+
+    @app.route("/process_create_category", methods=['GET', 'POST'])
+    def process_create_category():
+        form = CreateCategory()
+        
+        category = СategoryName.query.filter(СategoryName.name == form.category_name.data).first()
+        print(category)
+        if category is None:
+            type = request.form['inlineRadioOptions']
+            category = СategoryName(name=form.category_name.data, budget_type_id=type)
+            db_session.add(category)
+            db_session.commit()
+            flash('Create category successfully')
+            return redirect(url_for('category_expenses'))
+        flash('An error has occurred. Data not saved')
+        return redirect(url_for('create_category'))
+
+    @app.route('/budget_expenses')
+    def budget_expenses():
+        # title = "Budget"
+        return render_template('budget_expenses.html')
+
+    @app.route('/budget_income')
+    def budget_income():
+        # title = "Budget"
+        return render_template('budget_income.html')
 
     return app

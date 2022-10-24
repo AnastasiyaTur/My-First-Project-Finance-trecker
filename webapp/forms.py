@@ -41,23 +41,23 @@ class SignUpForm(FlaskForm):
 
 class AddTransaction(FlaskForm):
     # Create form for add a new transaction
-    transaction_type = RadioField('Transaction type',
-                                  choices=['Expenses', 'Income', 'Transfer'],
-                                  render_kw={"class": "form-check-input"})
-    description = TextAreaField('Description', validators=[DataRequired()],
-                                render_kw={"class": "form-control"})
-    account_type = SelectField('Account type',
-                               choices=['Cash', 'Card', 'Bank'],
-                               render_kw={"class": "custom-select"})
+    budget_type = RadioField('Transaction type',
+                             choices=[(1, 'Expenses'), (2, 'Income')])
+    description = StringField('Description')
+    account_type = SelectField(
+        'Account type', coerce=int, validate_choice=False,
+        choices=[(6, 'Cash'), (7, 'Card MasterCard'), (8, 'Bank')])
     amount = FloatField('Amount', validators=[DataRequired()],
                         render_kw={"class": "form-control"})
     date_of_transaction = DateField('Date', validators=[DataRequired()],
                                     format='%Y-%m-%d',
                                     render_kw={"class": "form-control"})
-    category_name = SelectField('Category',
-                                choices=['Salary', 'Groceries', 'Gift', 'Cafe',
-                                         'Transportation', 'Phone', 'Workout'],
-                                render_kw={"class": "custom-select"})
+    category_name = SelectField(
+        'Category',
+        choices=[(5, 'Salary'), (12, 'Groceries'),
+                 (9, 'Gifts'), (13, 'Cafe'),
+                 (4, 'Transportation'), (6, 'Investment'),
+                 (10, 'Workout')])
     submit = SubmitField('Add', render_kw={"class": "btn btn-primary"})
     cancel = SubmitField('Cancel', render_kw=({"class": "btn btn-secondary"},
                                               {'formnovalidate': True}))
@@ -69,4 +69,13 @@ class CreateAccount(FlaskForm):
                                render_kw={"class": "form-control"})
     amount = FloatField('Amount', validators=[DataRequired()],
                         render_kw={"class": "form-control"})
+    submit = SubmitField('Add', render_kw={"class": "btn btn-primary"})
+
+
+class CreateCategory(FlaskForm):
+    # Create a new category
+    category_name = StringField('Category name', validators=[DataRequired()],
+                                render_kw={"class": "form-control"})
+    budget_type = RadioField('Budget type',
+                             choices=[(1, 'Expenses'), (2, 'Income')])
     submit = SubmitField('Add', render_kw={"class": "btn btn-primary"})

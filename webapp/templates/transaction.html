@@ -19,32 +19,27 @@
         {{ form.hidden_tag() }}
       <div class="input-group mb-3"> 
         <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="1">
             <label class="form-check-label" for="inlineRadio1">Expenses</label>
         </div>
         <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="2">
             <label class="form-check-label" for="inlineRadio2">Income</label>
-        </div>
-        <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
-            <label class="form-check-label" for="inlineRadio3">Transfer</label>
-        </div>            
+        </div>                   
       </div>
 
         <div class="input-group mb-3" style="width: 500px">
-            <input class="form-control" type="text" placeholder="Description">            
+          <input class="form-control" type="text" placeholder="Description">            
         </div>      
 
         <div class="input-group mb-3" style="width: 500px">
             <div class="input-group-prepend">
               <label class="input-group-text" for="inputGroupSelect01">Account</label>
             </div>
-            <select class="custom-select" id="inputGroupSelect01">
-              <option selected>Cash</option>
-              <option value="1">Card</option>
-              <option value="2">Bank</option>
-              <option value="3">Add new...</option>
+            <select class="custom-select" id="inputGroupSelect01" name="select_account">
+              <option value="6">Cash</option>
+              <option value="7">Card MasterCard</option>
+              <option value="8">Bank</option>              
             </select>            
         </div>             
        
@@ -52,7 +47,7 @@
             <div class="input-group-prepend">
               <span class="input-group-text">Ammount</span>
             </div>
-            <input type="text" class="form-control" aria-label="Amount">
+            <input type="number" class="form-control" aria-label="Amount">
             <div class="input-group-append">
               <span class="input-group-text">€</span>
             </div>            
@@ -71,15 +66,14 @@
             <div class="input-group-prepend">
               <label class="input-group-text" for="inputGroupSelect01">Category</label>
             </div>
-            <select class="custom-select" id="inputGroupSelect01">
-              <option selected>Salary</option>
-              <option value="1">Groceries</option>
-              <option value="2">Gift</option>
-              <option value="3">Cafe</option>
+            <select class="custom-select" id="inputGroupSelect01" name="select_category">
+              <option value="5">Salary</option>
+              <option value="12">Groceries</option>
+              <option value="9">Gifts</option>
+              <option value="13">Cafe</option>
               <option value="4">Transportation</option>
-              <option value="5">Phone</option>
-              <option value="6">Workout</option>
-              <option value="7">Add new...</option>              
+              <option value="6">Investment</option>
+              <option value="10">Workout</option>                            
             </select>            
         </div>        
     

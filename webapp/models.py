@@ -27,28 +27,32 @@ class User(Base, UserMixin):
         return f'<User {self.username} {self.email}>'
 
 
-class СategoryName(Base):
-    # Create a table with different categories (Ex., Salary, Groceries, etc.)
-    __tablename__ = 'category_name'
-
-    id = Column(Integer, primary_key=True)
-    name = Column(String)
-    transaction = relationship("Transaction")
-
-    def __repr__(self):
-        return f'<Category {self.name}>'
-
-
 class BudgetType(Base):
     # Create a table with type of budget: Income and Expenses
     __tablename__ = 'budget_type'
 
     id = Column(Integer, primary_key=True)
     name = Column(String)
-    transaction = relationship("Transaction")
+    transaction = relationship("Transaction", overlaps="budget_type")
+    category_name = relationship("СategoryName", overlaps="budget_type")
 
     def __repr__(self):
         return f'<Type of budget: {self.name}>'
+
+
+class СategoryName(Base):
+    # Create a table with different categories (Ex., Salary, Groceries, etc.)
+    __tablename__ = 'category_name'
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String)
+    budget_type_id = Column(Integer, ForeignKey(BudgetType.id),
+                            index=True, nullable=False)
+    transaction = relationship("Transaction", overlaps="category_name")
+    budget_type = relationship("BudgetType", overlaps="category_name")
+
+    def __repr__(self):
+        return f'<Category {self.name}>'
 
 
 class Budget(Base):
@@ -71,7 +75,8 @@ class AccountType(Base):
 
     id = Column(Integer, primary_key=True)
     name = Column(String)
-    transaction = relationship("Transaction")
+    amount = Column(Float)
+    transaction = relationship("Transaction", overlaps="account_type")
 
     def __repr__(self):
         return f'<Type of account: {self.name}>'
@@ -84,6 +89,7 @@ class Transaction(Base):
     __tablename__ = 'transaction'
 
     id = Column(Integer, primary_key=True)
+    description = Column(String)
     amount = Column(Float)
     date_of_transaction = Column(Date)
     category_name_id = Column(Integer, ForeignKey(СategoryName.id),
