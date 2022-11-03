@@ -16,9 +16,11 @@
     <div class="container">
       {% if current_user.is_authenticated %}
       {% include 'pageview.html' %}
-      {% endif %}
-      <ins><h2>{{ page_title }}</h2></ins>
+      {% endif %}     
+      <ins><h1>{{ page_title }}</h1></ins>
+      <div class="p-3 mb-2 bg-white">
         {% block content %} {% endblock %}
+      </div>
     </div>
 
     <!-- Optional JavaScript -->

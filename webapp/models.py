@@ -55,20 +55,6 @@ class СategoryName(Base):
         return f'<Category {self.name}>'
 
 
-class Budget(Base):
-    # Create a table with the type of budget and the amount on it.
-    __tablename__ = 'budget'
-
-    id = Column(Integer, primary_key=True)
-    amount = Column(Float)
-    budget_type_id = Column(Integer, ForeignKey(BudgetType.id),
-                            index=True, nullable=False)
-    user_id = Column(Integer, ForeignKey(User.id), nullable=False)
-
-    def __repr__(self):
-        return f'<{self.budget_type_id}: {self.amount}>'
-
-
 class AccountType(Base):
     # Create a table with type of account (Ex., Cash, Visa card, Bank, etc.)
     __tablename__ = 'account_type'
@@ -97,7 +83,7 @@ class Transaction(Base):
     account_type_id = Column(Integer, ForeignKey(AccountType.id),
                              index=True, nullable=False)
     budget_type_id = Column(Integer, ForeignKey(BudgetType.id),
-                            index=True, nullable=False)
+                            index=True, nullable=False)    
     account_type = relationship("AccountType", overlaps='transaction')
     budget_type = relationship("BudgetType", overlaps='transaction')
     category_name = relationship("СategoryName", overlaps='transaction')
@@ -105,7 +91,7 @@ class Transaction(Base):
     def __repr__(self):
         return (f'<Transaction from {self.date_of_transaction}: '
                 f'{self.account_type_id} -- {self.category_name_id} = '
-                f'{self.amount}$ ({self.budget_type_id})>')
+                f'{self.amount}$ ({self.budget_type_id})({self.description})>')
 
 
 if __name__ == '__main__':

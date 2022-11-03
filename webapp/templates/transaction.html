@@ -19,6 +19,7 @@
         {{ form.hidden_tag() }}
       <div class="input-group mb-3"> 
         <div class="form-check form-check-inline">
+          
             <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="1">
             <label class="form-check-label" for="inlineRadio1">Expenses</label>
         </div>
@@ -29,7 +30,7 @@
       </div>
 
         <div class="input-group mb-3" style="width: 500px">
-          <input class="form-control" type="text" placeholder="Description">            
+          <input class="form-control" type="text" name="description" placeholder="Description">            
         </div>      
 
         <div class="input-group mb-3" style="width: 500px">
@@ -37,17 +38,17 @@
               <label class="input-group-text" for="inputGroupSelect01">Account</label>
             </div>
             <select class="custom-select" id="inputGroupSelect01" name="select_account">
-              <option value="6">Cash</option>
-              <option value="7">Card MasterCard</option>
-              <option value="8">Bank</option>              
+              {% for account in accounts_list %}
+              <option value="{{ account.id }}">{{ account.name }}</option>    
+              {% endfor %}                         
             </select>            
         </div>             
        
         <div class="input-group mb-3" style="width: 500px">
             <div class="input-group-prepend">
-              <span class="input-group-text">Ammount</span>
+              <span class="input-group-text">Amount</span>
             </div>
-            <input type="number" class="form-control" aria-label="Amount">
+            <input type="text" class="form-control" aria-label="Amount" name="amount">
             <div class="input-group-append">
               <span class="input-group-text">€</span>
             </div>            
@@ -60,25 +61,23 @@
             <div style="width: 443px" >
                 {{ form.date_of_transaction() }}
             </div>            
-        </div>            
+        </div>                 
 
+        
         <div class="input-group mb-3" style="width: 500px">
             <div class="input-group-prepend">
               <label class="input-group-text" for="inputGroupSelect01">Category</label>
-            </div>
+            </div>            
             <select class="custom-select" id="inputGroupSelect01" name="select_category">
-              <option value="5">Salary</option>
-              <option value="12">Groceries</option>
-              <option value="9">Gifts</option>
-              <option value="13">Cafe</option>
-              <option value="4">Transportation</option>
-              <option value="6">Investment</option>
-              <option value="10">Workout</option>                            
-            </select>            
-        </div>        
+            {% for category in categories_list %}            
+              <option value="{{ category.id }}">{{ category.name }}</option>
+            {% endfor %}                          
+            </select>                       
+        </div>       
+                 
     
         <button type="submit" class="btn btn-primary">OK</button>
-        <button type="submit" class="btn btn-secondary">Cancel</button>
+        <a href="{{ url_for('index') }}" class="btn btn-secondary">Cancel</a>
     
     </form>
     

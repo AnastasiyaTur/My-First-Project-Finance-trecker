@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          <div class="alert alert-warning" role="alert">
+            {% for message in messages %}
+              {{ message }}<br>
+            {% endfor %}
+          </div>
+        {% endif %}
+    {% endwith %}
+</div> 
+
+<div class="col-12"> 
+  <div class="input-group mb-3">   
+    <div class="form-check form-check-inline">
+    <div class="card text-white bg-success mb-3" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">Calendar</h5>          
+          <a href="#" class="btn btn-outline-light">Open</a>
+        </div>
+    </div>
+    </div>
+
+    <div class="form-check form-check-inline">
+    <div class="card text-white bg-info mb-3" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">Expenses</h5>
+            <a href="/expenses_pie_chart" class="btn btn-outline-light">Pie chart</a>
+            <a href="/expenses_bar_chart" class="btn btn-outline-light">Bar chart</a>          
+        </div>
+    </div>
+    </div>
+
+    <div class="form-check form-check-inline">
+        <div class="card text-white bg-warning mb-3" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">Income</h5>
+                <a href="/income_pie_chart" class="btn btn-outline-light">Pie chart</a>
+                <a href="/income_bar_chart" class="btn btn-outline-light">Bar chart</a>          
+            </div>
+        </div>
+        </div>
+  </div>  
+</div> 
+
+<div class="col-0">    
+</div>
+
+{% endblock %}

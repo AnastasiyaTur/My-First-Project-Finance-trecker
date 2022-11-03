@@ -2,7 +2,7 @@ from flask_wtf import FlaskForm
 from webapp.models import User
 from wtforms import (BooleanField, DateField, EmailField, FloatField,
                      PasswordField, RadioField, SelectField, StringField,
-                     SubmitField, TextAreaField)
+                     SubmitField)
 from wtforms.validators import DataRequired, Email, EqualTo, ValidationError
 
 
@@ -59,8 +59,6 @@ class AddTransaction(FlaskForm):
                  (4, 'Transportation'), (6, 'Investment'),
                  (10, 'Workout')])
     submit = SubmitField('Add', render_kw={"class": "btn btn-primary"})
-    cancel = SubmitField('Cancel', render_kw=({"class": "btn btn-secondary"},
-                                              {'formnovalidate': True}))
 
 
 class CreateAccount(FlaskForm):

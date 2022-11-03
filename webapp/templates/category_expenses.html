@@ -30,62 +30,18 @@
         </div>
     </div>
     </div>  
-</div>  
+  </div>  
 
-
-    <div class="form-check form-check-inline">
-        <div class="card bg-primary mb-3" style="width: 18rem;">
-            <div class="card-body">
-            <h5 class="card-title">Transportation</h5>          
-            <a href="#" class="btn btn-outline-light">Edit</a>
+  {% for category in categories_expenses_list %}
+    <div class="form-check form-check-inline">      
+        <div class="card bg-primary mb-3" style="width: 18rem;">          
+            <div class="card-body">              
+            <h5 class="card-title">{{ category.name }}</h5>                             
+            <a href="/category/{{ category.id }}/edit" class="btn btn-outline-light">Edit</a>             
             </div>
         </div>  
     </div>
-
-    <div class="form-check form-check-inline">
-        <div class="card bg-success mb-3" style="width: 18rem;">
-            <div class="card-body">
-              <h5 class="card-title">Workout</h5>          
-              <a href="#" class="btn btn-outline-light">Edit</a>
-            </div>
-        </div>  
-    </div>
-
-    <div class="form-check form-check-inline">
-        <div class="card bg-danger mb-3" style="width: 18rem;">
-            <div class="card-body">
-                <h5 class="card-title">Family</h5>          
-                <a href="#" class="btn btn-outline-light">Edit</a>
-            </div>
-        </div>  
-    </div> 
-    
-    <div class="form-check form-check-inline">
-        <div class="card bg-warning mb-3" style="width: 18rem;">
-            <div class="card-body">
-              <h5 class="card-title">Groceries</h5>          
-              <a href="#" class="btn btn-outline-light">Edit</a>
-            </div>
-        </div>  
-    </div>
-
-    <div class="form-check form-check-inline">
-        <div class="card bg-info mb-3" style="width: 18rem;">
-            <div class="card-body">
-              <h5 class="card-title">Gifts</h5>          
-              <a href="#" class="btn btn-outline-light">Edit</a>
-            </div>
-        </div>  
-    </div>
-
-    <div class="form-check form-check-inline">
-        <div class="card bg-success mb-3" style="width: 18rem;">
-            <div class="card-body">
-              <h5 class="card-title">Cafe</h5>          
-              <a href="#" class="btn btn-outline-light">Edit</a>
-            </div>
-        </div>  
-    </div>
+  {% endfor %}    
 
 </div>
 

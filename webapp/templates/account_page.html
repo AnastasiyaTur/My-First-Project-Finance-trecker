@@ -26,42 +26,25 @@
     <div class="card text-white bg-info mb-3" style="width: 18rem;">
         <div class="card-body" style="height: 113px;">
             <h5 class="card-title">Total amount</h5>
-            <p class="card-text">Amount: 0 €</p>          
+            <p class="card-text">Amount: {{ total_amount }} €</p>          
         </div>
     </div>
     </div>
   </div>    
 
-
+  {% for account in accounts_list %}
     <div class="form-check form-check-inline">
-    <div class="card text-white bg-secondary mb-3" style="width: 18rem;">
+    <div class="card text-white bg-danger mb-3" style="width: 18rem;">
         <div class="card-body">
-          <h5 class="card-title">Cash</h5>
-          <p class="card-text">Amount: 0 €</p>
-          <a href="#" class="btn btn-outline-light">Edit</a>
+          <h5 class="card-title">{{ account.name }}</h5>
+          <p class="card-text">Amount: {{ account.amount }} €</p>
+          <a href="/account/{{ account.id }}/edit" class="btn btn-outline-light">Edit</a>
         </div>
     </div>  
     </div>
+  {% endfor %}
 
-    <div class="form-check form-check-inline">
-    <div class="card text-white bg-secondary mb-3" style="width: 18rem;">
-        <div class="card-body">
-          <h5 class="card-title">Card MasterCard</h5>
-          <p class="card-text">Amount: 0 €</p>
-          <a href="#" class="btn btn-outline-light">Edit</a>
-        </div>
-    </div> 
-    </div>
-
-    <div class="form-check form-check-inline">
-    <div class="card text-white bg-secondary mb-3" style="width: 18rem;">
-        <div class="card-body">
-          <h5 class="card-title">Bank</h5>
-          <p class="card-text">Amount: 0 €</p>
-          <a href="#" class="btn btn-outline-light">Edit</a>
-        </div>
-    </div>
-    </div>    
+      
 
 </div>
 

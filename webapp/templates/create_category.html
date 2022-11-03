@@ -16,11 +16,13 @@
   <form action="{{ url_for('process_create_category') }}", method="POST">
     {{ form.hidden_tag() }}
     <div class="form-group">
-      {{ form.category_name.label }}
+      <div class="h-auto d-inline-block" style="width: 328px; background-color: rgba(229, 229, 230, 0.537)">
+      <h6>{{ form.category_name.label }}</h6></div>
       {{ form.category_name() }}
     </div>   
     <div>
-        {{ form.budget_type.label }} 
+      <div class="h-auto d-inline-block" style="width: 328px; background-color: rgba(229, 229, 230, 0.537)">
+      <h6>{{ form.budget_type.label }}</h6></div>
     </div>
     <div class="input-group mb-3">         
         <div class="form-check form-check-inline">
@@ -37,7 +39,6 @@
 </div>
 <div class="col-8"></div>
         
-
 
 
 {% endblock %}

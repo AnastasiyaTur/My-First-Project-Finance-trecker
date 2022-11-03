@@ -23,85 +23,41 @@
     <div class="form-check form-check-inline">
     <div class="card text-white bg-dark mb-3" style="width: 18rem;">
         <div class="card-body">
-          <h5 class="card-title">Add new category</h5>          
-          <a href="/create_category" class="btn btn-outline-light">Add</a>
+          <h5 class="card-title">Add new transaction</h5>          
+          <a href="/new_transaction" class="btn btn-outline-light">Add</a>
         </div>
     </div>
     </div>  
+
+    <div class="form-check form-check-inline">
+      <div class="card text-white bg-warning mb-3" style="width: 18rem;">
+          <div class="card-body" style="height: 113px;">
+            <h5 class="card-title">Total expenses</h5>          
+            <p class="card-text">Amount: {{ total_amount }} €</p>
+          </div>
+      </div>
+    </div>
 </div>   
 
-
+  {% for category in categories_expenses_list %}
+   {% for transaction in transaction_list %}
+    {% if category.id == transaction.category_name_id %}
     <div class="form-check form-check-inline">
     <div class="card text-white bg-primary mb-3" style="width: 18rem;">
         <div class="card-body">
-          <h5 class="card-title">Transportation</h5>
-          <p class="card-text">Amount: 0 €</p>
-          <p class="card-text">Card MasterCard</p>
-          <p class="card-text">18.10.2022</p>
-          <a href="#" class="btn btn-outline-light">Edit</a>
+          <h5 class="card-title">{{ category.name }}</h5>
+          <p class="card-text">Amount: {{ transaction.amount }} €</p>
+          <p class="card-text">{{ transaction.account_type.name }}</p>
+          <p class="card-text">{{ transaction.date_of_transaction }}</p>
+          <p class="card-text">Description: {{ transaction.description }}</p>
+          <a href="/budget/{{ transaction.id }}/edit" class="btn btn-outline-light">Edit</a>
         </div>
     </div>  
     </div>
-
-    <div class="form-check form-check-inline">
-        <div class="card text-white bg-success mb-3" style="width: 18rem;">
-            <div class="card-body">
-              <h5 class="card-title">Workout</h5>
-              <p class="card-text">Amount: 0 €</p>
-              <p class="card-text">Cash</p>
-              <p class="card-text">19.10.2022</p>
-              <a href="#" class="btn btn-outline-light">Edit</a>
-            </div>
-        </div>  
-        </div>
-
-    <div class="form-check form-check-inline">
-        <div class="card text-white bg-danger mb-3" style="width: 18rem;">
-            <div class="card-body">
-                <h5 class="card-title">Family</h5>
-                <p class="card-text">Amount: 0 €</p>
-                <p class="card-text">Card MasterCard</p>
-                <p class="card-text">13.10.2022</p>
-                <a href="#" class="btn btn-outline-light">Edit</a>
-            </div>
-        </div>  
-    </div>    
-
-    <div class="form-check form-check-inline">
-        <div class="card text-white bg-warning mb-3" style="width: 18rem;">
-            <div class="card-body">
-              <h5 class="card-title">Groceries</h5>
-              <p class="card-text">Amount: 0 €</p>
-              <p class="card-text">Card MasterCard</p>
-              <p class="card-text">11.10.2022</p>
-              <a href="#" class="btn btn-outline-light">Edit</a>
-            </div>
-        </div>  
-    </div>
-
-    <div class="form-check form-check-inline">
-        <div class="card text-white bg-info mb-3" style="width: 18rem;">
-            <div class="card-body">
-              <h5 class="card-title">Gifts</h5>
-              <p class="card-text">Amount: 0 €</p>
-              <p class="card-text">Cash</p>
-              <p class="card-text">13.10.2022</p>
-              <a href="#" class="btn btn-outline-light">Edit</a>
-            </div>
-        </div>  
-    </div>
-
-    <div class="form-check form-check-inline">
-        <div class="card text-white bg-success mb-3" style="width: 18rem;">
-            <div class="card-body">
-              <h5 class="card-title">Cafe</h5>
-              <p class="card-text">Amount: 0 €</p>
-              <p class="card-text">Card MasterCard</p>
-              <p class="card-text">15.10.2022</p>
-              <a href="#" class="btn btn-outline-light">Edit</a>
-            </div>
-        </div>  
-    </div>
+    {% endif %}
+   {% endfor %}
+  {% endfor %}
+    
 
 </div>
 
