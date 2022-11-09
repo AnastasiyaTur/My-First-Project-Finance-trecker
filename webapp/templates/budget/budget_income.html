@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          <div class="alert alert-warning" role="alert">
+            {% for message in messages %}
+              {{ message }}<br>
+            {% endfor %}
+          </div>
+        {% endif %}
+    {% endwith %}
+</div> 
+<div class="col-12"> 
+    <nav aria-label="breadcrumb">
+        <h4><ol class="breadcrumb" style="width: 900px">
+          <li class="breadcrumb-item">Budget</li>
+          <li class="breadcrumb-item active" aria-current="page">Income</li>
+        </ol></h4>
+    </nav>
+
+  <div class="input-group mb-3">    
+    <div class="form-check form-check-inline">
+    <div class="card text-white bg-dark mb-3" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">Add new transaction</h5>          
+          <a href="/transactions/new_transaction" class="btn btn-outline-light">Add</a>
+        </div>
+    </div>
+    </div>  
+
+    <div class="form-check form-check-inline">
+      <div class="card text-white bg-warning mb-3" style="width: 18rem;">
+          <div class="card-body" style="height: 113px;">
+            <h5 class="card-title">Total income</h5>          
+            <p class="card-text">Amount: {{ total_amount }} €</p>
+          </div>
+      </div>
+    </div>
+</div>   
+
+
+{% for category in categories_income_list %}
+ {% for transaction in transaction_list %}
+  {% if category.id == transaction.category_name_id %}
+  <div class="form-check form-check-inline">
+  <div class="card text-white bg-success mb-3" style="width: 18rem;">
+     <div class="card-body">
+       <h5 class="card-title">{{ category.name }}</h5>
+       <p class="card-text">Amount: {{ transaction.amount }} €</p>
+       <p class="card-text">{{ transaction.account_type.name }}</p>
+       <p class="card-text">{{ transaction.date_of_transaction }}</p>
+       <p class="card-text">Description: {{ transaction.description }}</p>
+       <a href="/budget/budget/{{ transaction.id }}/edit" class="btn btn-outline-light">Edit</a>
+     </div>
+  </div>  
+  </div>
+  {% endif %}
+ {% endfor %}
+{% endfor %}   
+    
+
+</div>
+
+<div class="col-0">    
+</div>
+
+{% endblock %}
