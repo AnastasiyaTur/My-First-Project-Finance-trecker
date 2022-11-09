@@ -12,13 +12,13 @@
   </head>
   <body>
     {% include 'menu.html' %}
-    
-    <div class="container">
-      {% if current_user.is_authenticated %}
+
+    {% if current_user.is_authenticated %}
       {% include 'pageview.html' %}
-      {% endif %}     
-      <ins><h1>{{ page_title }}</h1></ins>
+      {% endif %}
+    <div class="container">        
       <div class="p-3 mb-2 bg-white">
+        <ins><h1>{{ page_title }}</h1></ins>
         {% block content %} {% endblock %}
       </div>
     </div>

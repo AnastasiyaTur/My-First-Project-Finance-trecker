@@ -1,17 +1,17 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">Finance Trecker</a>
+    <a class="navbar-brand" href="/">Finance Trecker</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
   
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="/">Home</a>
+        <li class="nav-item active">          
         </li>             
       </ul>
         <span class="navbar-text">
           {% if current_user.is_authenticated %}
+          <img src="../static/images/user (1).png" width="20" height="20" style="color: rgba(225, 234, 237, 0.966);" class="d-inline-block fixed-link" alt="">
             Hello, {{ current_user.username }}:  
             <small class="text-muted">{{ current_user.email }}</small>
           {% endif %}     
@@ -19,12 +19,12 @@
         
         <ul class="nav-btn">
             {% if current_user.is_authenticated %} 
-              <a class="btn btn-primary" href="{{ url_for('sign_up') }}" role="button">SignUp</a>
-              <a class="btn btn-outline-light" href="{{ url_for('logout') }}" role="button">Logout</a>
+              <a class="btn btn-primary" href="{{ url_for('user.sign_up') }}" role="button">SignUp</a>
+              <a class="btn btn-outline-light" href="{{ url_for('user.logout') }}" role="button">Logout</a>
             {% endif %}
             {% if not current_user.is_authenticated %}
-              <a class="btn btn-primary" href="{{ url_for('login') }}" role="button">Login</a>
-              <a class="btn btn-outline-primary" href="{{ url_for('sign_up') }}" role="button">SignUp</a>              
+              <a class="btn btn-primary" href="{{ url_for('user.login') }}" role="button">Login</a>
+              <a class="btn btn-outline-primary" href="{{ url_for('user.sign_up') }}" role="button">SignUp</a>              
             {% endif %}
         </ul>       
                 

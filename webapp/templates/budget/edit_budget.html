@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          <div class="alert alert-warning" role="alert">
+            {% for message in messages %}
+              {{ message }}<br>
+            {% endfor %}
+          </div>
+        {% endif %}
+    {% endwith %}  
+
+</div> 
+
+<div class="col-4">      
+  <nav aria-label="breadcrumb">
+    <h4><ol class="breadcrumb" style="width: 900px">
+      <li class="breadcrumb-item">Budget</li>
+      <li class="breadcrumb-item active" aria-current="page">Edit</li>
+    </ol></h4>
+  </nav> 
+
+    <form method="POST">      
+        <div class="mb-3">
+          <div class="h-auto d-inline-block" style="width: 328px; background-color: rgba(229, 229, 230, 0.537)">
+          <label for="exampleInputname" class="form-label"><h6>Category name</h6></label></div> 
+          <div id="nameHelp" class="form-text text-muted"><small>This line cannot be changed. Delete and create a new one.</small></div>          
+          <a type="text" class="form-control bg-light text-dark" id="name" name="name" aria-describedby="nameHelp">{{ transaction.category_name.name }}</a>
+        </div>
+
+        <div class="mb-3">
+          <div class="h-auto d-inline-block" style="width: 328px; background-color: rgba(229, 229, 230, 0.537)">
+          <label for="exampleInputamount" class="form-label"><h6>Amount</h6></label></div>
+          <input type="number" class="form-control border border-primary" id="amount" name="amount" value="{{ transaction.amount }}">
+        </div>  
+        
+        <div class="mb-3">
+          <div class="h-auto d-inline-block" style="width: 328px; background-color: rgba(229, 229, 230, 0.537)">
+            <label for="exampleInputaccounttype" class="form-label"><h6>Account type</h6></label></div>
+            <div id="accountHelp" class="form-text text-muted"><small>This line cannot be changed. Delete and create a new one.</small></div>          
+            <a type="text" class="form-control bg-light text-dark" id="account" name="account" aria-describedby="accountHelp">{{ transaction.account_type.name }}</a>
+          </div>
+        
+        <div class="mb-3">
+          <div class="h-auto d-inline-block" style="width: 328px; background-color: rgba(229, 229, 230, 0.537)">
+            <label for="exampleInputdate" class="form-label"><h6>Date</h6></label></div>
+            <input type="date" class="form-control border border-primary" id="date" name="date" value="{{ transaction.date_of_transaction }}">
+        </div>
+
+        <div class="mb-3">
+          <div class="h-auto d-inline-block" style="width: 328px; background-color: rgba(229, 229, 230, 0.537)">
+            <label for="exampleInputdescription" class="form-label"><h6>Description</h6></label></div>
+            <input type="text" class="form-control border border-primary" id="description" name="description" value="{{ transaction.description }}">
+        </div>
+
+        <button type="submit" class="btn btn-success">Edit</button>
+        <a href="/budget/budget/{{ transaction.id }}/delete" class="btn btn-danger">Delete</a>
+    </form>        
+
+</div>
+
+<div class="col-8">    
+</div>
+
+{% endblock %}
